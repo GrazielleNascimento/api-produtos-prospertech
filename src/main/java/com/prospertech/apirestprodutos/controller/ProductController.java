@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/produts")
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
-    private ProductService productService;
+    ProductService productService;
 
     @GetMapping("/findall")
     public ResponseEntity<List<Product>> findAll() {
@@ -44,8 +44,8 @@ public class ProductController {
         }
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Product> update(@Valid @RequestBody Long id, Product product) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Product> update(@PathVariable Long id, @Valid @RequestBody  Product product) {
         Product productUpdated = productService.update(id, product);
         if(productUpdated != null) {
             return ResponseEntity.status(HttpStatus.OK).body(productUpdated);
